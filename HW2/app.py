@@ -3,9 +3,13 @@
 from flask import Flask, render_template
 
 from customer import customer
+from order import order
+from product import product
 
 app = Flask(__name__)
 app.register_blueprint(customer)
+app.register_blueprint(product)
+app.register_blueprint(order)
 
 db_config = {
     "user": "demouser",

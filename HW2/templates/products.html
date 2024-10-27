@@ -1,0 +1,43 @@
+<head>
+	<title>products</title>
+</head>
+<body>
+	<nav>
+		<a href="/">home</a>
+	</nav>
+
+	<h1>Create a new product</h1>
+
+    <form method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+		<br>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required>
+		<br>
+        <button type="submit">Submit</button>
+    </form>
+
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Price</th>
+		</tr>
+		{% for product in products %} 
+		<tr>
+			<td>{{ product["product_name"]}}</td>
+			<td>{{ product["product_price"]}}</td>
+			<td>
+				<form method="post" action="{{ url_for('product.delete_product', product_id=product.product_id) }}">
+					<input class="btn" type="submit" name="delete" value="Delete">
+				</form>
+			</td>
+			<td>
+				<form method="get" action="{{ url_for('product.edit_product', product_id=product.product_id) }}">
+					<input class="btn" type="submit" name="edit" value="Edit">
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+</body>

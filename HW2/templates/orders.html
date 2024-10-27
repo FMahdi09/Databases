@@ -1,0 +1,53 @@
+<head>
+	<title>orders</title>
+</head>
+<body>
+	<nav>
+		<a href="/">home</a>
+	</nav>
+
+	<h1>Create a new order</h1>
+
+    <form method="POST">
+        <label for="order_date">Date:</label>
+        <input type="date" id="order_date" name="order_date" required>
+		<br>
+        <label for="customers">Customer:</label>
+		<select name="Customers" id="customers">
+			{% for customer in customers %} 
+			<option value="{{customer["customer_id"]}}">{{customer["customer_name"]}}</option>
+			{% endfor %}
+		</select>
+		<br>
+        <label for="products">Products:</label>
+		<select name="Products" id="products">
+			{% for product in products %} 
+			<option value="{{product["product_id"]}}">{{product["product_name"]}}</option>
+			{% endfor %}
+		</select>
+		<br>
+        <button type="submit">Submit</button>
+    </form>
+
+	<table>
+		<tr>
+			<th>Customer_name</th>
+			<th>Product_name</th>
+			<th>Product_price</th>
+			<th>Order_date</th>
+		</tr>
+		{% for order in orders %} 
+		<tr>
+			<td>{{ order["customer_name"]}}</td>
+			<td>{{ order["product_name"]}}</td>
+			<td>{{ order["product_price"]}}</td>
+			<td>{{ order["order_date"]}}</td>
+			<td>
+				<form method="post" action="{{ url_for('order.delete_order', order_id=order.order_id) }}">
+					<input class="btn" type="submit" name="delete" value="Delete">
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+</body>
